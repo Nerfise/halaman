@@ -37,7 +37,8 @@ const AdminDashboard = () => {
                   ...order,
                   username: user ? user.email : 'Unknown User',
                   userAddress: address ? `${address.street}, ${address.city}` : 'Unknown Address',
-                  date: new Date(order.date).toLocaleDateString() // Fetching and formatting the date
+                  date: new Date(order.date).toLocaleDateString(), // Fetching and formatting the date
+                  description: order.description || 'No description available' // Fetching the description
                 };
               });
 
@@ -101,13 +102,13 @@ const AdminDashboard = () => {
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Order</th>
             <th>Date</th>
             <th>Username</th>
             <th>Address</th>
             <th>Items</th>
             <th>Payment Method</th>
             <th>Status</th>
+            <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -115,13 +116,13 @@ const AdminDashboard = () => {
           {pendingOrders.length > 0 ? pendingOrders.map(order => (
             <tr key={order.id}>
               <td>{order.id}</td>
-              <td>{order.items.map(item => item.name).join(', ')}</td>
               <td>{order.date}</td>
               <td>{order.username}</td>
               <td>{order.userAddress}</td>
-              <td>{order.items.length} items</td>
+              <td>{order.items.map(item => item.name).join(', ')}</td>
               <td>{order.paymentMethod}</td>
               <td>{order.status}</td>
+              <td>{order.description}</td>
               <td>
                 <button onClick={() => markAsDelivered(order.id)}>Mark as Delivered</button>
               </td>
@@ -140,13 +141,13 @@ const AdminDashboard = () => {
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Order</th>
             <th>Date</th>
             <th>Username</th>
             <th>Address</th>
             <th>Items</th>
             <th>Payment Method</th>
             <th>Status</th>
+            <th>Description</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -154,13 +155,13 @@ const AdminDashboard = () => {
           {deliveredOrders.length > 0 ? deliveredOrders.map(order => (
             <tr key={order.id}>
               <td>{order.id}</td>
-              <td>{order.items.map(item => item.name).join(', ')}</td>
               <td>{order.date}</td>
               <td>{order.username}</td>
               <td>{order.userAddress}</td>
-              <td>{order.items.length} items</td>
+              <td>{order.items.map(item => item.name).join(', ')}</td>
               <td>{order.paymentMethod}</td>
               <td>{order.status}</td>
+              <td>{order.description}</td>
               <td><button disabled>Delivered</button></td>
             </tr>
           )) : (
